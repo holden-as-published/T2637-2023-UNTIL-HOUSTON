@@ -23,14 +23,14 @@ public class CatzDrivetrain
     private final int RT_FRNT_STEER_ID = 8;
 
     private final int LT_FRNT_ENC_PORT = 9;
-    private final int LT_BACK_ENC_PORT = 6;
+    private final int LT_BACK_ENC_PORT = 8;
     private final int RT_BACK_ENC_PORT = 7;
-    private final int RT_FRNT_ENC_PORT = 8;
+    private final int RT_FRNT_ENC_PORT = 6;
 
-    private final double LT_FRNT_OFFSET =  0.01484; 
-    private final double LT_BACK_OFFSET =  0.22205; 
-    private final double RT_BACK_OFFSET =  0.2550; 
-    private final double RT_FRNT_OFFSET = -0.1650; 
+    private final double LT_FRNT_OFFSET =  0.01000; 
+    private final double LT_BACK_OFFSET =  0.2280; 
+    private final double RT_BACK_OFFSET =  0.2396; 
+    private final double RT_FRNT_OFFSET =  0.8459; 
 
     private final double NOT_FIELD_RELATIVE = 0.0;
 
