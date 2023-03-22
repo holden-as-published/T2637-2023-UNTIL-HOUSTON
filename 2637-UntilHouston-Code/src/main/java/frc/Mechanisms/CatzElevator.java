@@ -25,7 +25,8 @@ public class CatzElevator extends AbstractMechanism
         private final double inch;
         private final String name;
 
-        private PosID(double inch, String name){
+        private PosID(double inch, String name)
+        {
             this.inch = inch;
             this.name = name;
         }
@@ -68,7 +69,8 @@ public class CatzElevator extends AbstractMechanism
     private WPI_TalonFX elevatorMotor;
     private SupplyCurrentLimitConfiguration elevatorMotorCurrentLimit;
 
-    public CatzElevator(){
+    public CatzElevator()
+    {
         super(ELEVATOR_THREAD_PERIOD_MS);
 
         midLimitSwitch = new DigitalInput(MID_LIMIT_SWITCH_CHANNEL);
@@ -97,7 +99,8 @@ public class CatzElevator extends AbstractMechanism
             currentPos = targetPos;
             distanceRemainingEnc = 0.0;
         }
-        else{
+        else
+        {
             currentPos = PosID.NULL;
         }
 
@@ -106,21 +109,25 @@ public class CatzElevator extends AbstractMechanism
     }
 
 
-    public void setElevatorTargetPose(PosID pos){
+    public void setElevatorTargetPose(PosID pos)
+    {
         targetPos = pos;
     }
 
-    public void elevatorMotorManual(double direction){
+    public void elevatorMotorManual(double direction)
+    {
         elevatorMotor.set(ControlMode.PercentOutput, ELEVATOR_MOTOR_MANUAL_EXT_POWER * Math.signum(direction));
     }
 
     @Override
-    public void smartDashboard(){
+    public void smartDashboard()
+    {
         SmartDashboard.putString("Elevator Current Pos", currentPos.name);
     }
 
     @Override
-    public void smartDashboard_DEBUG(){
+    public void smartDashboard_DEBUG()
+    {
         SmartDashboard.putNumber("Elevator Target Power", targetPower);
         SmartDashboard.putString("Elevator Target Pos", targetPos.name);
         SmartDashboard.putNumber("Elevator Distance Remaining", distanceRemainingEnc * ENC_COUNTS_TO_INCH);

@@ -29,7 +29,8 @@ public class CatzArm extends AbstractMechanism
         NON(6); // none
         
         public final int id;
-        private PosID(int id){
+        private PosID(int id)
+        {
             this.id = id;
         }
     }

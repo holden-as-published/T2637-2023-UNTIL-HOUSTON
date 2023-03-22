@@ -24,6 +24,8 @@ import frc.DataLogger.DataCollection;
 import frc.Mechanisms.CatzArm;
 import frc.Mechanisms.CatzDrivetrain;
 import frc.Mechanisms.CatzIntake;
+import frc.Mechanisms.CatzIntakeElbow;
+import frc.Mechanisms.CatzIntakeWrist;
 import frc.Mechanisms.CatzElevator;
 import frc.Mechanisms.CatzRGB;
 
@@ -86,6 +88,8 @@ public class Robot extends TimedRobot {
   public static CatzElevator        elevator;
   public static CatzIntake          intake;
   public static CatzArm             arm;
+  public static CatzIntakeElbow     elbow;
+  public static CatzIntakeWrist     wrist;
 
   public static Timer               currentTime;      //TBD - what is this intended for?
   
@@ -147,8 +151,11 @@ public class Robot extends TimedRobot {
     //----------------------------------------------------------------------------------------------
     drivetrain     = new CatzDrivetrain();
     catzRGB        = new CatzRGB();
+    elevator       = new CatzElevator();
+    intake         = new CatzIntake();
+    wrist          = new CatzIntakeWrist();
+    elbow          = new CatzIntakeElbow();
    
-    
 
     currentTime = new Timer();
 
@@ -177,16 +184,20 @@ public class Robot extends TimedRobot {
     drivetrain.smartDashboardDriveTrain();
     arm.smartDashboard();
     elevator.smartDashboard();
-    intake.smartDashboardIntake();
+    intake.smartDashboard();
+    wrist.smartDashboard();
+    elbow.smartDashboard();
    
    //smartdashboard debug should be commented out for comp
 
    //auton
-    balance.SmartDashboardBalanceDebug();
+    balance.SmartDashboardBalanceDebug(); 
     drivetrain.smartDashboardDriveTrain_DEBUG();
     arm.smartDashboard_DEBUG();
     elevator.smartDashboard_DEBUG();
-    intake.smartDashboardIntake_DEBUG();
+    intake.smartDashboard_DEBUG();
+    wrist.smartDashboard_DEBUG();
+    elbow.smartDashboard_DEBUG();
   
     
     catzRGB.LEDWork();
