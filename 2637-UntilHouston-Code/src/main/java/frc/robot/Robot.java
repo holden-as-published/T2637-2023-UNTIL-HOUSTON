@@ -175,8 +175,8 @@ public class Robot extends TimedRobot {
 
     balance.SmartDashboardBalance();
     drivetrain.smartDashboardDriveTrain();
-    arm.smartDashboardArm();
-    elevator.smartDashboardElevator();
+    arm.smartDashboard();
+    elevator.smartDashboard();
     intake.smartDashboardIntake();
    
    //smartdashboard debug should be commented out for comp
@@ -184,8 +184,8 @@ public class Robot extends TimedRobot {
    //auton
     balance.SmartDashboardBalanceDebug();
     drivetrain.smartDashboardDriveTrain_DEBUG();
-    arm.smartDashboardArm_DEBUG();
-    elevator.smartDashboardElevator_DEBUG();
+    arm.smartDashboard_DEBUG();
+    elevator.smartDashboard_DEBUG();
     intake.smartDashboardIntake_DEBUG();
   
     
