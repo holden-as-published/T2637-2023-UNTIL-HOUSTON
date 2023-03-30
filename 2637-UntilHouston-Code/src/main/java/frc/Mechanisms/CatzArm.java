@@ -56,6 +56,7 @@ public class CatzArm extends AbstractMechanism
     private final double DEADBAND_RADIUS_INCH = 1;
     private final double DEADBAND_RADIUS_ENC  = DEADBAND_RADIUS_INCH * INCH_TO_ENC;
 
+
     private final double ARM_MOTOR_MANUAL_EXT_POWER = 0.5;
 
     public volatile PosID targetPos = PosID.STW;

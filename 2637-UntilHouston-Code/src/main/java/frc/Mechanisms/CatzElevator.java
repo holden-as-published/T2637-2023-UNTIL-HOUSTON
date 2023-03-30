@@ -69,6 +69,15 @@ public class CatzElevator extends AbstractMechanism
     private WPI_TalonFX elevatorMotor;
     private SupplyCurrentLimitConfiguration elevatorMotorCurrentLimit;
 
+    private final double P_VALUE = 0.1;
+    private final double I_VALUE = 0.0;
+    private final double D_VALUE = 0.0;
+
+    private final double MAX_ACCEL = 99999.99;
+    private final double MAX_SPEED = 99999.99;
+
+    private boolean manualMode = false;
+
     public CatzElevator()
     {
         super(ELEVATOR_THREAD_PERIOD_MS);
@@ -79,33 +88,34 @@ public class CatzElevator extends AbstractMechanism
 
         elevatorMotor = new WPI_TalonFX(ELEVATOR_MOTOR_CAN_ID);
         elevatorMotor.configFactoryDefault();
+
         elevatorMotor.configSupplyCurrentLimit(elevatorMotorCurrentLimit);
-        
         elevatorMotor.setSelectedSensorPosition(0.0);
         elevatorMotor.setNeutralMode(NeutralMode.Brake);
 
-        start(); 
+        elevatorMotor.config_kP(0, P_VALUE);
+        elevatorMotor.config_kP(0, I_VALUE);
+        elevatorMotor.config_kP(0, D_VALUE);
+
+        elevatorMotor.configMotionAcceleration(9999.0); //value determined using WAG method
+        elevatorMotor.configMotionCruiseVelocity(9999.0);
+        elevatorMotor.configMotionSCurveStrength(2); 
+
+
+        
+
+            start(); 
 
     }
 
     @Override
     public void update()
     {
-        currentPositionEnc = elevatorMotor.getSelectedSensorPosition();
-        distanceRemainingEnc = (targetPos.inch * INCH_TO_ENC_COUNTS) - currentPositionEnc;
-
-        if((Math.abs(distanceRemainingEnc) <= DEADBAND_RADIUS_ENC) || (targetPos == PosID.MID && midLimitSwitch.get()))
+        if (!manualMode && targetPos!=PosID.NULL) //this should prevent a null target position from being commanded, but may prevent command interruption 
         {
-            currentPos = targetPos;
-            distanceRemainingEnc = 0.0;
-        }
-        else
-        {
-            currentPos = PosID.NULL;
+            elevatorMotor.set(ControlMode.MotionMagic, (targetPos.inch*INCH_TO_ENC_COUNTS));
         }
 
-        targetPower = CatzMathUtils.clamp(distanceRemainingEnc * POWER_GAIN_PER_INCH, MIN_POWER, MAX_POWER);
-        elevatorMotor.set(ControlMode.PercentOutput, targetPower);
     }
 
 
@@ -116,7 +126,16 @@ public class CatzElevator extends AbstractMechanism
 
     public void elevatorMotorManual(double direction)
     {
-        elevatorMotor.set(ControlMode.PercentOutput, ELEVATOR_MOTOR_MANUAL_EXT_POWER * Math.signum(direction));
+        if (Math.abs(direction)>0.1 || manualMode == true)
+        {
+            manualMode = true;
+            elevatorMotor.set(ControlMode.PercentOutput, ELEVATOR_MOTOR_MANUAL_EXT_POWER * Math.signum(direction));
+
+            if (Math.abs(direction)<0.1)
+            {
+                manualMode = false;
+            }
+        }
     }
 
     @Override
